@@ -1,0 +1,73 @@
+import { Observable } from "@nativescript/core";
+import { AR as Augmented, ARNode, ARCommonNode, ARDimensions, ARPosition } from 'nativescript-ar';
+import { WorldOrientation } from './ar/WorldOrientation';
+import { Marker } from './ar/feature/Marker';
+import { Coord, Coordinate } from './spatial/Spherical';
+import { Vector3 } from './ar/math/Vector3';
+export interface ARItem {
+    root: ARNode;
+    shape: ARNode;
+    loaded?: boolean;
+    feature: Feature;
+    initialDistance: number;
+    updates: number;
+    initialized: boolean;
+    distance: number;
+    heading: Heading;
+    position: ARPosition;
+    marker: Marker | null;
+}
+export interface Feature {
+    id: number;
+    name: string;
+    coordinates: Coord;
+}
+declare type Heading = number;
+export declare const Zero3D: () => ARDimensions;
+export declare class AR extends Observable {
+    private _ar;
+    private _field;
+    private _container;
+    private _pageData;
+    private _items;
+    private _origin;
+    private _worldOrientation;
+    private _worldAlign;
+    private _worldNode;
+    private _priorityDistance;
+    private _requiresItemUpdate;
+    private _locked;
+    private _selection;
+    private _imageTracker;
+    private _options;
+    constructor(ar: Augmented, container: any, field: any);
+    remove(): void;
+    addAction: (name: any, fn: any) => void;
+    getActionName: (name: any) => string;
+    getAugmented(): Augmented;
+    getWorldNode(): ARCommonNode;
+    getContainer(): any;
+    getOrientation(): WorldOrientation;
+    private _renderStats;
+    private _renderCompass;
+    private _renderARView;
+    private requireUpdate;
+    private _startUpdateInterval;
+    private _initFeatures;
+    private _loadLayerItems;
+    coordinateToVector3(coordinate: any): Vector3;
+    getOriginCoordinate(): Coordinate;
+    getCameraCoordinate(): Coordinate;
+    private _calibrateWorldOrigin;
+    private shouldUpdateItem;
+    updateItem(item: ARItem): void;
+    private _isSelected;
+    getMarkers(): Marker[];
+    private _addPoint;
+    private lockWorld;
+    private unlockWorld;
+    private _resolveLayer;
+    private _loadLayerFeatures;
+    private _trackImages;
+}
+export {};
